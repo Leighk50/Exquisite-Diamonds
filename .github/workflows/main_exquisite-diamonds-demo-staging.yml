@@ -19,8 +19,7 @@ jobs:
       - name: Build static demo
         run: npm run build
       - name: Assemble static deployment
-        run: |
-          mkdir -p deploy\n          cp -R out/. deploy/\n          cp static-server.js deploy/server.js
+        run: mkdir -p deploy && cp -R out/. deploy/ && cp static-server.js deploy/server.js
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
         with:
