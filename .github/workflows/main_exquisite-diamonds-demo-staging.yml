@@ -16,14 +16,11 @@ jobs:
           node-version: '22.x'
       - name: Install dependencies
         run: npm install
-      - name: Build Next.js standalone
+      - name: Build static demo
         run: npm run build
-      - name: Assemble standalone deployment
+      - name: Assemble static deployment
         run: |
-          mkdir -p deploy/.next
-          cp -R .next/standalone/. deploy/
-          cp -R .next/static deploy/.next/static
-          if [ -d public ]; then cp -R public deploy/public; fi
+          mkdir -p deploy\n          cp -R out/. deploy/\n          cp static-server.js deploy/server.js
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
         with:
