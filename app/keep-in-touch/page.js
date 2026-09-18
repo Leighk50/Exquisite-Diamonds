@@ -1,0 +1,1 @@
+export default function Page(){return <main style={{padding:"80px 8%",minHeight:"70vh"}}><p className="eyebrow">EXQUISITE DIAMONDS</p><h1 style={{fontSize:60,fontWeight:400}}>Keep in Touch</h1><p style={{fontSize:20,maxWidth:700,lineHeight:1.6}}>Join our list and be among the first to know whenever a new piece is added to the collection.</p></main>}
