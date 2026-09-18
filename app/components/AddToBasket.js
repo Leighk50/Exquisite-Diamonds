@@ -1,0 +1,1 @@
+"use client";import {useState} from "react";import {useCart} from "./CartProvider";export default function AddToBasket({product}){const {add}=useCart();const [added,setAdded]=useState(false);return <button className="addBasket" onClick={()=>{add({slug:product.slug,name:product.name,price:product.price});setAdded(true)}}>{added?"ADDED TO BASKET ✓":"ADD TO BASKET"}</button>}
