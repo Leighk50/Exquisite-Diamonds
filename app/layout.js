@@ -1,0 +1,3 @@
+import "./globals.css";
+export const metadata={title:"Exquisite Diamonds",description:"Exceptional certified diamond jewellery"};
+export default function RootLayout({children}){return <html lang="en"><body><header><div className="brand">◇◇<span>EXQUISITE<small>DIAMONDS</small></span></div><nav><a href="/">Home</a><a href="/rings">Rings</a><a href="/earrings">Earrings</a><a href="/necklaces">Necklaces</a><a href="/about">About Us</a><a href="/keep-in-touch">Keep in Touch</a><a href="/contact">Contact</a></nav><div className="icons">♡　🛍</div></header>{children}<footer><b>EXQUISITE DIAMONDS</b><span>Certified diamonds · Secure payments · Insured UK delivery</span></footer></body></html>}
