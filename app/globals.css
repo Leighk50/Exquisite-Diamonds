@@ -52,3 +52,20 @@ html{scroll-padding-top:110px}img,svg{max-width:100%}main,section,.productInfo,.
  footer{padding:26px 20px;letter-spacing:1px;font-size:14px;line-height:1.7}footer b,footer span{display:block}footer span{margin-top:10px}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Logo enlarged to twice its previous width and height at each breakpoint. */
+.antiqueLogo{width:340px;height:272px}.actualBrand{flex-shrink:0}
+html{scroll-padding-top:320px}
+@media(max-width:1100px){
+ .antiqueLogo{width:220px;height:176px}
+ header nav{max-height:calc(100dvh - 220px)}
+ html{scroll-padding-top:220px}
+}
+@media(max-width:650px){
+ .antiqueLogo{width:180px;height:144px}
+ header .actualBrand{grid-column:1/-1;grid-row:1}
+ header .menuToggle{grid-column:1;grid-row:2;justify-self:start}
+ header .basketLink{grid-column:3;grid-row:2;justify-self:end}
+ header nav{grid-row:3;max-height:calc(100dvh - 250px)}
+ html{scroll-padding-top:250px}
+}
