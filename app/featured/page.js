@@ -1,0 +1,4 @@
+import ProductCard from "../components/ProductCard";
+import {products} from "../data/products";
+export const metadata={title:"Featured Pieces | Antique Diamonds",description:"Browse our featured antique and vintage diamond jewellery"};
+export default function FeaturedPieces(){const featured=products.filter(p=>p.justArrived);return <main><section className="pageHero"><p className="eyebrow">A SELECTION OF OUR CURRENT FAVOURITES</p><h1>Featured Pieces</h1><p>Discover our featured antique and vintage diamond jewellery, chosen for its character, craftsmanship and timeless beauty.</p></section><section className="collectionGrid" aria-label="Featured jewellery">{featured.length?featured.map(p=><ProductCard key={p.slug} product={p}/>):<p>New featured pieces will be added soon.</p>}</section></main>}
