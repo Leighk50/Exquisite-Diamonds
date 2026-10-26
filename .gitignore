@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+deploy/
+catalogue-seed.json
+.env*
+!.env.example
+node_modules

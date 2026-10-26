@@ -16,10 +16,12 @@ jobs:
           node-version: '22.x'
       - name: Install dependencies
         run: npm install
+      - name: Test catalogue and back office
+        run: npm test
       - name: Build static demo
         run: npm run build
       - name: Assemble static deployment
-        run: mkdir -p deploy && cp -R out/. deploy/ && cp static-server.js deploy/server.js
+        run: mkdir -p deploy && cp -R out/. deploy/ && cp static-server.js deploy/server.js && cp -R backend deploy/backend && cp catalogue-seed.json deploy/catalogue-seed.json
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
         with:

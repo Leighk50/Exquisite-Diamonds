@@ -1,1 +1,17 @@
-{"name":"exquisite-diamonds","version":"0.1.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"node server.js"},"dependencies":{"next":"15.5.2","react":"19.1.0","react-dom":"19.1.0"},"devDependencies":{}}
+{
+  "name": "exquisite-diamonds",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "node scripts/build-seed.js && next build",
+    "start": "node static-server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "next": "15.5.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {}
+}
