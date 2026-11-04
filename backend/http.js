@@ -1,4 +1,5 @@
 const http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto'),os=require('node:os');
+const cancellations=require('./cancellations');
 const {CatalogueStore,HttpError}=require('./catalogue'); const {auth}=require('./auth');
 const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ico':'image/x-icon','.woff2':'font/woff2','.txt':'text/plain'};
 async function body(req,limit) { const parts=[];let length=0;for await(const chunk of req){length+=chunk.length;if(length>limit)throw new HttpError(413,'The upload is too large. Photos must be under 8 MB.');parts.push(chunk);}return Buffer.concat(parts); }
@@ -19,6 +20,11 @@ async function createApp(options={}) {
    if(pathname.includes('\0')||pathname.includes('\\'))throw new HttpError(400,'Invalid path.');
    if(pathname.startsWith('/api/')) {
     if(pathname==='/api/catalogue'&&req.method==='GET'){const c=await store.read();return send(res,200,{revision:c.revision,products:c.products.filter(p=>p.published)});}
+    if(pathname==='/api/cancellations'&&req.method==='POST'){
+     if(req.headers.origin&&new URL(req.headers.origin).host!==req.headers.host)throw new HttpError(403,'Submit your cancellation on this website.');
+     if(req.headers['sec-fetch-site']==='cross-site')throw new HttpError(403,'Cross-site request blocked.');
+     return send(res,201,await cancellations.save(store.directory,await jsonBody(req)));
+    }
     if(!pathname.startsWith('/api/admin/'))throw new HttpError(404,'Not found.');
     if(['POST','PUT','DELETE','PATCH'].includes(req.method)) {
      const origin=req.headers.origin;const host=req.headers.host;
@@ -37,6 +43,7 @@ async function createApp(options={}) {
     if(pathname==='/api/admin/session'&&req.method==='GET')return send(res,200,{csrf:current.csrf});
     if(!['GET','HEAD'].includes(req.method))security.verifyCSRF(req,current);
     if(pathname==='/api/admin/logout'&&req.method==='POST'){res.setHeader('Set-Cookie',security.logout());return send(res,200,{ok:true});}
+    if(pathname==='/api/admin/cancellations'&&req.method==='GET')return send(res,200,{cancellations:await cancellations.list(store.directory)});
     if(pathname==='/api/admin/catalogue'&&req.method==='GET')return send(res,200,await store.read());
     if(pathname==='/api/admin/export'&&req.method==='GET'){res.setHeader('Content-Disposition','attachment; filename="antique-diamonds-catalogue.json"');return send(res,200,await store.read());}
     if(pathname==='/api/admin/products'&&req.method==='POST'){
