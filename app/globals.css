@@ -103,3 +103,6 @@ html{scroll-padding-top:320px}
 header.siteHeader{transition:transform 220ms ease;will-change:transform}
 header.siteHeader.headerHidden{transform:translateY(-100%)}
 @media(prefers-reduced-motion:reduce){header.siteHeader{transition:none}}
+
+/* Let the storefront header scroll naturally with the page. */
+body > header, header.siteHeader, header:not(.backoffice-header) { position: relative; top: auto; }
