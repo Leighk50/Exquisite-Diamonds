@@ -21,6 +21,8 @@ function validateProduct(input, existing) {
   p.price = Math.round(input.price * 100) / 100;
   p.featuredOrder = input.featuredOrder == null ? 100 : Number(input.featuredOrder);
   if (!Number.isInteger(p.featuredOrder) || p.featuredOrder < 0 || p.featuredOrder > 9999) throw new HttpError(400, 'Featured order must be a whole number from 0 to 9999.');
+  p.displayOrder = input.displayOrder == null ? (existing?.displayOrder ?? 100) : Number(input.displayOrder);
+  if (!Number.isInteger(p.displayOrder) || p.displayOrder < 0 || p.displayOrder > 9999) throw new HttpError(400, 'Display order must be a whole number from 0 to 9999.');
   p.category = input.category; p.collection = input.collection;
   for (const field of ['featured','justArrived','published','sold']) {
     if (typeof input[field] !== 'boolean') throw new HttpError(400, 'Invalid '+field+' setting.');
